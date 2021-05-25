@@ -115,6 +115,7 @@ button {
   background-color: transparent;
   border: 0;
 }
+.container .contact-list > ul > li > button:hover,
 .container .contact-list > ul > li > button.selected {
   background-color: #e3f6ff;
 }
