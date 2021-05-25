@@ -75,7 +75,7 @@ function decreasement() {
     return false;
   }
 
-  let totalValue = currentValue - inputValue;
+  let totalValue = currentValue - Math.abs(inputValue);
   value.innerText = totalValue;
 
   numList.push(-inputValue);
