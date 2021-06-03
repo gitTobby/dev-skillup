@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>대현이의 탑</title>
+  </head>
+  <body>
+    <script>
+      function numRow(rows) {
+        var result = [];
+        for (row = 0; row < rows; row++) {
+          var arr = [];
+          for (col = 0; col <= row; col++) {
+            arr.push(calc(row, col));
+          }
+          result.push(arr);
+        }
+        return result;
+      }
+
+      function calc(row, col) {
+        if (col === 0 || col === row) {
+          return 1;
+        } else {
+          return calc(row - 1, col - 1) + calc(row - 1, col);
+        }
+      }
+
+      console.log(numRow(6));
+    </script>
+  </body>
+</html>
