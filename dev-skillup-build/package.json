@@ -5,15 +5,26 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "sass": "node-sass public/app.scss --source-map true --source-map-embed true",
+    "lint": "eslint --ext .jsx,.js,.tsx,.ts src/ --fix",
+    "style:fix": "stylelint --aei *.css,*.scss,*sass src/ --fix"
   },
   "dependencies": {
     "next": "10.2.3",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "recoil": "^0.3.1",
+    "node-sass": "^5.0.0",
+    "react-highlight": "^0.14.0",
+    "realgrid": "^2.3.2"
   },
   "devDependencies": {
     "@types/react": "17.0.9",
-    "typescript": "4.3.2"
-  }
+    "@types/react-highlight": "^0.12.2",
+    "typescript": "4.3.2",
+    "eslint-config-wehago": "^1.0.34",
+    "eslint-plugin-babel": "^5.3.1"
+  },
+  "prettier": "eslint-config-wehago/prettierrc"
 }
