@@ -1,6 +1,4 @@
-import React from 'react';
-
-const Info = ({ selected }) => {
+const Info = ({ selected }: any) => {
   return (
     <ul className="info">
       <li>이름: {selected.name}</li>

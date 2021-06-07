@@ -6,22 +6,23 @@ const Top = () => {
   const [text, setText] = useState<string>();
 
   const numRow = (rows: any) => {
-    var result = [];
+    var result: any = [];
     for (let row = 0; row < rows; row++) {
       var arr = [];
       for (let col = 0; col <= row; col++) {
-        arr.push(calc(row, col));
+        arr.push(calc(row, col, result));
       }
       result.push(arr);
     }
     return result;
   };
 
-  const calc = (row: any, col: any): any => {
+  const calc = (row: any, col: any, result: any): any => {
     if (col === 0 || col === row) {
       return 1;
     } else {
-      return calc(row - 1, col - 1) + calc(row - 1, col);
+      // return calc(row - 1, col - 1) + calc(row - 1, col);
+      return result[row - 1][col - 1] + result[row - 1][col];
     }
   };
 

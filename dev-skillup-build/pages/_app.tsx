@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import type { AppProps } from 'next/app';
 import { RecoilRoot } from 'recoil';
-import Header from '../src/common/header';
+import Header from '../src/common/Header';
 import Main from '../src/common/main';
 import '../styles/app.css';
 

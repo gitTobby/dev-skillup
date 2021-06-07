@@ -1,8 +1,14 @@
-import React from 'react';
 import lists from './data/lists';
+import { IList } from './types/types';
 
-const ContactList = ({ keyword, selected, selectList }) => {
-  const handleClick = (list) => {
+interface IContactProps {
+  keyword: string;
+  selected: IList | undefined;
+  selectList: (list: IList) => void;
+}
+
+const ContactList = ({ keyword, selected, selectList }: IContactProps) => {
+  const handleClick = (list: IList) => {
     const info = list;
     selectList(info);
   };
@@ -14,11 +20,7 @@ const ContactList = ({ keyword, selected, selectList }) => {
           .filter((list) => list.name.indexOf(keyword) !== -1)
           .map((list, index) => (
             <li key={index}>
-              <button
-                type="button"
-                className={selected === list ? 'selected' : ''}
-                onClick={() => handleClick(list)}
-              >
+              <button type="button" className={selected === list ? 'selected' : ''} onClick={() => handleClick(list)}>
                 {list.name}
               </button>
             </li>
