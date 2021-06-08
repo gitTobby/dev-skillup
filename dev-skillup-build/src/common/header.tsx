@@ -15,7 +15,6 @@ const Header = ({ snb, openSnb }: any) => {
           </svg>
           <span className="blind">Menu</span>
         </button>
-
         <Link href="/">
           <a onClick={handleClick}>
             <h1 className="title">Dev-Skillup</h1>

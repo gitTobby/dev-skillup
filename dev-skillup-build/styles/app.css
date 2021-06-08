@@ -60,9 +60,33 @@ button {
   height: 100vh; */
   margin: 30px auto 0;
 }
-.subject {
+.contact-header {
+  position: relative;
+}
+.contact-header .subject {
   margin-bottom: 0.4rem;
   font-size: 1.3rem;
+}
+.contact-header .btn-group {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.contact-header .btn-group > .btn {
+  padding: 0.25rem 0.5rem;
+  background-color: #1c90fb;
+  border: 0;
+  color: #fff;
+  font-size: 0.75rem;
+}
+.contact-header .btn-group > .btn:focus,
+.contact-header .btn-group > .btn:hover {
+  background-color: #006dd2;
+}
+
+.contact-header .btn-group > .btn + .btn {
+  margin-left: 4px;
 }
 .split-box {
   display: flex;
@@ -113,6 +137,9 @@ header .split .btn.btn-menu .icon-svg {
   width: 24px;
   height: 24px;
   fill: #fff;
+}
+header .split a {
+  text-decoration: none;
 }
 header .split .title {
   margin-left: 0.625rem;
@@ -308,6 +335,14 @@ main.snb-open .dimmed {
 .ex-contact .contact-list > ul > li > button.selected {
   background-color: #e3f6ff;
 }
+.ex-contact .contact-list .emptyset {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -35px;
+  transform: translate(-50%, -50%);
+}
+
 .ex-contact .details {
   position: absolute;
   top: 0;
@@ -320,6 +355,27 @@ main.snb-open .dimmed {
   font-size: 1rem;
   line-height: 2;
 }
+.ex-contact .details .btn-edit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+.ex-contact .details .btn-edit > button {
+  margin: 0 0.25rem;
+  padding: 0.25rem 0.5rem;
+  background-color: transparent;
+  border: 1px solid #b4b4b4;
+  border-radius: 4px;
+  color: #424242;
+  font-size: 0.85rem;
+}
+.ex-contact .details .btn-edit > button:hover {
+  background-color: #1c90fb;
+  border-color: #888;
+  color: #fff;
+}
+
 .ex-contact .details .emptyset {
   position: absolute;
   top: 50%;

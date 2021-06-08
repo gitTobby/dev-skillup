@@ -1,31 +1,45 @@
-import lists from './data/lists';
+import React, { useRef } from 'react';
+import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
+import { selectedState, filteredListsState, editState, newItemState } from '../../src/contact/state/contact';
 import { IList } from './types/types';
+import Empty from './Empty';
 
-interface IContactProps {
-  keyword: string;
-  selected: IList | undefined;
-  selectList: (list: IList) => void;
-}
+const ContactList = () => {
+  const [selected, setSelected] = useRecoilState<IList | undefined>(selectedState);
+  const filteredLists = useRecoilValue<IList[]>(filteredListsState);
+  const setEdit = useSetRecoilState<boolean>(editState);
+  // const newItem = useRecoilValue<boolean>(newItemState);
+  // const newRef = useRef<HTMLButtonElement>();
 
-const ContactList = ({ keyword, selected, selectList }: IContactProps) => {
   const handleClick = (list: IList) => {
+    setEdit(false);
     const info = list;
-    selectList(info);
+    setSelected(info);
+    // newRef.current?.focus();
   };
+
+  // if (!newRef.current) {
+  //   return;
+  // }
+  // newRef.current.focus();
+
+  console.log();
 
   return (
     <div className="contact-list">
-      <ul>
-        {lists
-          .filter((list) => list.name.indexOf(keyword) !== -1)
-          .map((list, index) => (
+      {filteredLists.length > 0 ? (
+        <ul>
+          {filteredLists.map((list, index) => (
             <li key={index}>
               <button type="button" className={selected === list ? 'selected' : ''} onClick={() => handleClick(list)}>
                 {list.name}
               </button>
             </li>
           ))}
-      </ul>
+        </ul>
+      ) : (
+        <Empty />
+      )}
     </div>
   );
 };

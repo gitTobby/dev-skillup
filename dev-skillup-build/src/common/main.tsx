@@ -1,12 +1,9 @@
-import Router from 'next/router';
 import Snb from './snb';
 
 const Main = ({ snb, openSnb, children }: any) => {
   const handleClick = () => {
     openSnb(false);
   };
-
-  console.log(Router.router);
 
   const closeSnb = () => {
     openSnb(false);

@@ -5,7 +5,7 @@ const Top = () => {
   const [inputNum, setInputNum] = useState<number>();
   const [text, setText] = useState<string>();
 
-  const numRow = (rows: any) => {
+  const numRow = (rows: number) => {
     var result: any = [];
     for (let row = 0; row < rows; row++) {
       var arr = [];
@@ -17,7 +17,7 @@ const Top = () => {
     return result;
   };
 
-  const calc = (row: any, col: any, result: any): any => {
+  const calc = (row: number, col: number, result: []): any => {
     if (col === 0 || col === row) {
       return 1;
     } else {

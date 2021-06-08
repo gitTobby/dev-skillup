@@ -1,13 +1,15 @@
 import React, { ChangeEvent } from 'react';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { keywordState, selectedState } from '../../src/contact/state/contact';
+import { IList } from './types/types';
 
-interface IContactProps {
-  keyword: string;
-  changeKeyword: (value: string) => void;
-}
+const SearchBox = () => {
+  const [keyword, setKeyword] = useRecoilState<string>(keywordState);
+  const setSelected = useSetRecoilState<IList | undefined>(selectedState);
 
-const SearchBox = ({ keyword, changeKeyword }: IContactProps) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    changeKeyword(e.target.value);
+    setKeyword(e.target.value);
+    setSelected(undefined);
   };
 
   return (
