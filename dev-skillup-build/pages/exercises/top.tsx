@@ -21,7 +21,7 @@ const Top = () => {
     if (col === 0 || col === row) {
       return 1;
     } else {
-      // return calc(row - 1, col - 1) + calc(row - 1, col);
+      // return calc(row - 1, col - 1) + calc(row - 1, col);  // 이런거 하지말자!
       return result[row - 1][col - 1] + result[row - 1][col];
     }
   };
