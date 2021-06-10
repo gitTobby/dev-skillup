@@ -13,10 +13,10 @@ class MyDocument extends Document {
           <meta charSet="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
           <title>Dev-Skillup</title>
-          <script>
+          {/* <script>
             var realGrid2Lic =
             'upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYm9cY8amGDkiMnVeQKUHJDjW2y71jtk+wteqHQ1mRMIXzEcGIrzZpzzNTakk0yR9UcO/hzNodVsIiqQNVtxmmYt';
-          </script>
+          </script> */}
           {/* <script type="text/javascript" src="https://static.wehago.com/realgrid2/realgrid-lic.js"></script> */}
           <link rel="stylesheet" type="text/css" href="https://static.wehago.com/realgrid2/realgrid-style.css" />
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/night-owl.min.css" />

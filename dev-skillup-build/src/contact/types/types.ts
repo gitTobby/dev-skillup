@@ -1,7 +1,8 @@
 interface IList {
+  id: number;
   name: string;
   age: number;
-  etc: string;
+  detail: string;
 }
 
 export type { IList };

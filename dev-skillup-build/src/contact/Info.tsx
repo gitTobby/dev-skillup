@@ -1,6 +1,7 @@
 import React, { MouseEvent, ChangeEvent } from 'react';
+import axios from 'axios';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { selectedState, listsState, editState, insertState, newItemState, dummyState } from '../../src/contact/state/contact';
+import { selectedState, listsState, editState, insertState, dummyState } from '../../src/contact/state/contact';
 import { IList } from './types/types';
 import Empty from './Empty';
 
@@ -9,9 +10,17 @@ const Info = () => {
   const [selected, setSelected] = useRecoilState<IList | undefined>(selectedState);
   const [edit, setEdit] = useRecoilState<boolean>(editState);
   const [dummy, setDummy] = useRecoilState<IList | undefined>(dummyState);
-  const [lists, setLists] = useRecoilState<IList[]>(listsState);
-  const setNewItem = useSetRecoilState<boolean>(insertState);
+  const setLists = useSetRecoilState<IList[]>(listsState);
+  //const setNewItem = useSetRecoilState<boolean>(insertState);
 
+  // API 호출
+  const getData = async () => {
+    const url = 'http://localhost:8080/contacts';
+    const getLists = await axios.get(url);
+    setLists(getLists.data);
+  };
+
+  // 수정 버튼 눌렀을 때
   const handleEdit = (e: MouseEvent<HTMLButtonElement> | undefined) => {
     if (edit === true) setEdit(false);
     else if (edit === false) {
@@ -20,6 +29,7 @@ const Info = () => {
     }
   };
 
+  // Input 변경 시
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setDummy({
       ...dummy,
@@ -27,49 +37,79 @@ const Info = () => {
     } as typeof dummy);
   };
 
-  const handleInsert = (e: ChangeEvent<HTMLInputElement>) => {
-    setDummy({
-      ...dummy,
-      [e.target.name]: e.target.name === 'age' ? Number(e.target.value) : e.target.value,
-    } as typeof dummy);
-  };
-
+  // 취소 버튼 눌렀을 때
   const handleClear = (num: number) => {
     setEdit(false);
     setDummy(undefined);
     if (num === 1) setInsert(false);
   };
 
-  const handleModify = () => {
+  // 연락처 입력
+  const handleSubmit = async () => {
     if (dummy) {
-      const allLists = lists.map((list) => {
-        if (selected?.name === list.name) {
-          return dummy;
-        } else {
-          return list;
-        }
-      });
-      setLists(allLists);
+      await postSubmit(dummy);
+      getData();
+      setSelected(dummy);
+      //setNewItem(true);
+    }
+  };
+
+  // 입력 API
+  const postSubmit = (data: any) => {
+    const url = 'http://localhost:8080/contacts/';
+
+    const result = axios({
+      method: 'POST',
+      url,
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      data: JSON.stringify(data),
+    });
+
+    return new Promise((resolve, reject) => {
+      result
+        .then(({ data: { resultData } }) => {
+          resolve(resultData);
+        })
+        .catch(reject);
+    });
+  };
+
+  // 연락처 수정
+  const handleModify = async () => {
+    if (dummy) {
+      await pupModify(dummy);
+      getData();
       setEdit(false);
       setSelected(dummy);
     }
   };
 
-  const handleSubmit = () => {
-    if (dummy) setLists([...lists, dummy]);
-    setSelected(dummy);
-    setNewItem(true);
+  // 수정 API
+  const pupModify = (data: any) => {
+    const url = 'http://localhost:8080/contacts/' + data.id;
+
+    const result = axios({
+      method: 'PUT',
+      url,
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      data: JSON.stringify(data),
+    });
+
+    return new Promise((resolve, reject) => {
+      result
+        .then(({ data: { resultData } }) => {
+          resolve(resultData);
+        })
+        .catch(reject);
+    });
   };
 
-  const handleDelete = (e: MouseEvent<HTMLButtonElement> | undefined) => {
+  // 연락처 삭제
+  const handleDelete = async (e: MouseEvent<HTMLButtonElement> | undefined) => {
     const delMsg = confirm("'" + selected?.name + "'" + '님의 연락처를 정말 삭제하시겠습니까?');
     if (delMsg == true) {
-      const deleteList = lists.filter((list) => {
-        if (selected?.name !== list.name) {
-          return list;
-        }
-      });
-      setLists(deleteList);
+      await deleteList(selected?.id);
+      getData();
       setEdit(false);
       setSelected(undefined);
 
@@ -78,7 +118,29 @@ const Info = () => {
     return delMsg;
   };
 
+  // 삭제 API
+  const deleteList = (id: any) => {
+    const url = 'http://localhost:8080/contacts/' + id;
+
+    const result = axios({
+      method: 'DELETE',
+      url,
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      data: JSON.stringify({ id: id }),
+    });
+
+    return new Promise((resolve, reject) => {
+      result
+        .then(({ data: { resultData } }) => {
+          resolve(resultData);
+        })
+        .catch(reject);
+    });
+  };
+
+  // console.log('Selected: ');
   // console.log(selected);
+  // console.log('Dummy: ');
   // console.log(dummy);
 
   return (
@@ -90,7 +152,7 @@ const Info = () => {
               <ul className="info">
                 <li>이름: {dummy ? dummy?.name : selected.name}</li>
                 <li>나이: {dummy ? dummy?.age : selected.age}</li>
-                <li>기타: {dummy ? dummy?.etc : selected.etc}</li>
+                <li>기타: {dummy ? dummy?.detail : selected.detail}</li>
               </ul>
               <div className="btn-edit">
                 <button type="button" onClick={handleEdit}>
@@ -111,7 +173,7 @@ const Info = () => {
                   나이: <input type="text" name="age" value={dummy?.age} onChange={handleChange} />
                 </li>
                 <li>
-                  기타: <input type="text" name="etc" value={dummy?.etc} onChange={handleChange} />
+                  기타: <input type="text" name="detail" value={dummy?.detail} onChange={handleChange} />
                 </li>
               </ul>
               <div className="btn-edit">
@@ -129,13 +191,13 @@ const Info = () => {
         <>
           <ul className="info">
             <li>
-              이름: <input type="text" name="name" onChange={handleInsert} />
+              이름: <input type="text" name="name" onChange={handleChange} />
             </li>
             <li>
-              나이: <input type="text" name="age" onChange={handleInsert} />
+              나이: <input type="text" name="age" onChange={handleChange} />
             </li>
             <li>
-              기타: <input type="text" name="etc" onChange={handleInsert} />
+              기타: <input type="text" name="detail" onChange={handleChange} />
             </li>
           </ul>
           <div className="btn-edit">

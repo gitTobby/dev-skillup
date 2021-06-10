@@ -8,6 +8,7 @@ const ButtonBox = () => {
   const setSelected = useSetRecoilState<IList | undefined>(selectedState);
   const setDummy = useSetRecoilState<IList | undefined>(dummyState);
 
+  // 연락처 추가 버튼 눌렀을 때
   const handleClick = (e: MouseEvent<HTMLButtonElement> | undefined) => {
     setDummy(undefined);
     setSelected(undefined);
@@ -17,7 +18,7 @@ const ButtonBox = () => {
   return (
     <div className="btn-group">
       <button type="button" className="btn" onClick={handleClick}>
-        주소록 추가
+        연락처 추가
       </button>
     </div>
   );
