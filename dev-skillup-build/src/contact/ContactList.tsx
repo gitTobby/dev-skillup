@@ -18,10 +18,6 @@ const ContactList = () => {
     getData();
   }, []);
 
-  // useEffect(() => {
-
-  // }, [selected]);
-
   // API 호출
   const getData = async () => {
     const url = 'http://localhost:8080/contacts';
@@ -34,7 +30,7 @@ const ContactList = () => {
     setDummy(undefined);
     setEdit(false);
     setSelected(list);
-    newSelect.current?.focus();
+    //newSelect.current?.focus();
   };
 
   // if (!newRef.current) {
