@@ -69,12 +69,17 @@ button {
   z-index: 1;
   width: 100%;
   height: 200px;
-  background-color: #fff;
+  background: url(https://static.wehago.com/imgs/dtp/banner_bg2.png) center no-repeat;
+  background-size: cover;
+  background-position: center center;
   box-shadow: 0px 2px 12px 0px rgb(0 0 0 / 4%);
 }
 .showcase .section {
   position: relative;
   padding: 80px 0;
+}
+.showcase .title {
+  color: #fff;
 }
 .showcase .btn-box {
   position: absolute;
@@ -109,6 +114,7 @@ button {
   width: 100%;
   height: calc(100vh - 200px);
   margin-top: 200px;
+  padding-bottom: 60px;
 }
 .content .section {
   margin-top: 24px;
@@ -121,9 +127,10 @@ button {
 
 /* Table */
 .di-tbl {
-  background-color: #fff;
+  /* background-color: #fff;
   border-radius: 4px;
-  box-shadow: 2px 2px 2px 0px rgb(0 0 0 / 8%);
+  box-shadow: 2px 2px 2px 0px rgb(0 0 0 / 8%); */
+  position: relative;
 }
 .di-tbl .tbl-caption {
   display: flex;
@@ -181,6 +188,24 @@ button {
   color: #4a4a4a;
   font-size: 14px;
   word-break: break-all;
+}
+.di-tbl.v2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+.di-tbl.v2 table thead th {
+  border-bottom: 1px solid #f1f1f2;
+}
+.di-tbl .tbl-body {
+  overflow: auto;
+  position: absolute;
+  top: 110px;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 /* Pagination */
@@ -244,6 +269,8 @@ button {
 .tbl-tree-wrap .tbl-snb .search-box {
   padding: 14px;
   background-color: #f6f6f6;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 }
 .tbl-tree-wrap .tbl-snb .search-box .inp-sch {
   width: 100%;
@@ -287,10 +314,10 @@ button {
 }
 .tbl-tree-wrap .tbl-content {
   flex: 1;
-  overflow: auto;
   position: relative;
 }
-.tbl-tree-wrap .tbl-content .tree-wrap {
+.tbl-tree-wrap .tbl-content .inner-wrap {
+  overflow: auto;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -298,6 +325,9 @@ button {
   right: 0;
   border: 1px solid #ebebeb;
   border-radius: 4px;
+}
+.tbl-tree-wrap .tbl-content .inner-wrap.no-scroll {
+  overflow: hidden;
 }
 
 @media (max-width: 1200px) {
